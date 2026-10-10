@@ -17,11 +17,9 @@ import {
   X,
   Gauge,
   GraduationCap,
-  Lock,
-  Download
+  Lock
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext.tsx';
-import { InstallAppModal } from './InstallAppModal.tsx';
 
 interface NavbarProps {
   currentTab: string;
@@ -36,7 +34,6 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const { user, isOwner, hasActiveSubscription, logout } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [installModalOpen, setInstallModalOpen] = useState(false);
 
   const navLinks = [
     { id: 'home', label: 'الرئيسية', icon: Cpu },
@@ -174,16 +171,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
             )}
 
-            {/* Install / Download & Vercel Button */}
-            <button
-              onClick={() => setInstallModalOpen(true)}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-emerald-600/25 to-sky-600/25 border border-emerald-500/40 text-emerald-300 hover:text-white hover:border-emerald-400 transition-all cursor-pointer shadow-sm shadow-emerald-500/10"
-              title="تحميل وتثبيت التطبيق والنشر على Vercel"
-            >
-              <Download className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-              <span className="hidden sm:inline">تحميل & Vercel</span>
-            </button>
-
             {/* Mobile menu trigger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -261,28 +248,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
             </div>
           )}
-
-          {/* Mobile Install & Vercel Action */}
-          <div className="pt-2">
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                setInstallModalOpen(true);
-              }}
-              className="w-full py-2.5 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600/30 to-sky-600/30 border border-emerald-500/40 text-emerald-300 hover:text-white transition-all cursor-pointer"
-            >
-              <Download className="w-4 h-4 text-emerald-400" />
-              <span>تحميل وتثبيت التطبيق • النشر على Vercel</span>
-            </button>
-          </div>
         </div>
       )}
-
-      {/* Install & Vercel Modal */}
-      <InstallAppModal
-        isOpen={installModalOpen}
-        onClose={() => setInstallModalOpen(false)}
-      />
     </header>
   );
 };
