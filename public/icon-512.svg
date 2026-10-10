@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="50%" stop-color="#0369a1" />
+      <stop offset="100%" stop-color="#1e1b4b" />
+    </linearGradient>
+    <linearGradient id="chipGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0ea5e9" />
+      <stop offset="100%" stop-color="#38bdf8" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="108" fill="url(#bgGrad)" />
+  <rect x="24" y="24" width="464" height="464" rx="92" fill="none" stroke="#38bdf8" stroke-width="6" stroke-opacity="0.4" stroke-dasharray="16 12" />
+  
+  <!-- Circuit Traces -->
+  <path d="M 60 160 H 140 L 180 200 H 220" stroke="#38bdf8" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.6"/>
+  <circle cx="60" cy="160" r="12" fill="#38bdf8"/>
+  <path d="M 452 160 H 372 L 332 200 H 292" stroke="#38bdf8" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.6"/>
+  <circle cx="452" cy="160" r="12" fill="#38bdf8"/>
+  <path d="M 60 352 H 140 L 180 312 H 220" stroke="#fbbf24" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.6"/>
+  <circle cx="60" cy="352" r="12" fill="#fbbf24"/>
+  <path d="M 452 352 H 372 L 332 312 H 292" stroke="#fbbf24" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.6"/>
+  <circle cx="452" cy="352" r="12" fill="#fbbf24"/>
+
+  <!-- Center Microchip / Processor Box -->
+  <rect x="156" y="156" width="200" height="200" rx="36" fill="#0f172a" stroke="#38bdf8" stroke-width="10" />
+  
+  <!-- Chip Pins -->
+  <rect x="190" y="132" width="16" height="24" rx="4" fill="#fbbf24"/>
+  <rect x="230" y="132" width="16" height="24" rx="4" fill="#fbbf24"/>
+  <rect x="270" y="132" width="16" height="24" rx="4" fill="#fbbf24"/>
+  <rect x="306" y="132" width="16" height="24" rx="4" fill="#fbbf24"/>
+
+  <rect x="190" y="356" width="16" height="24" rx="4" fill="#fbbf24"/>
+  <rect x="230" y="356" width="16" height="24" rx="4" fill="#fbbf24"/>
+  <rect x="270" y="356" width="16" height="24" rx="4" fill="#fbbf24"/>
+  <rect x="306" y="356" width="16" height="24" rx="4" fill="#fbbf24"/>
+
+  <!-- Core Lightning Bolt & Gear -->
+  <path d="M 270 190 L 210 265 H 260 L 235 325 L 305 250 H 255 Z" fill="url(#goldGrad)" stroke="#ffffff" stroke-width="4" stroke-linejoin="round"/>
+</svg>

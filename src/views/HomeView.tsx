@@ -17,10 +17,12 @@ import {
   ShieldCheck,
   ChevronLeft,
   Gauge,
-  GraduationCap
+  GraduationCap,
+  Download
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext.tsx';
 import { WhatsAppButton } from '../components/auth/WhatsAppButton.tsx';
+import { InstallAppModal } from '../components/layout/InstallAppModal.tsx';
 
 interface HomeViewProps {
   setCurrentTab: (tab: string) => void;
@@ -29,6 +31,7 @@ interface HomeViewProps {
 
 export const HomeView: React.FC<HomeViewProps> = ({ setCurrentTab, onOpenAuth }) => {
   const { user, hasActiveSubscription, isOwner } = useAuth();
+  const [showInstallModal, setShowInstallModal] = React.useState(false);
 
   const labCards = [
     {
@@ -263,6 +266,33 @@ export const HomeView: React.FC<HomeViewProps> = ({ setCurrentTab, onOpenAuth })
         </div>
       </section>
 
+      {/* Vercel & PWA Download Ready Banner */}
+      <div className="bg-gradient-to-r from-sky-950/70 via-slate-900 to-emerald-950/70 border border-sky-500/30 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg shadow-sky-950/50">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-emerald-500 flex items-center justify-center text-white shrink-0 shadow-md shadow-sky-500/20">
+            <Download className="w-5 h-5" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-white font-bold text-sm">التطبيق جاهز للتحميل والتثبيت ونشر Vercel</span>
+              <span className="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded-full font-mono">
+                PWA & Vercel Ready
+              </span>
+            </div>
+            <p className="text-xs text-slate-300 mt-0.5">
+              يمكنك تثبيت المختبر كتطبيق على هاتفك أو حاسوبك للعمل بدون إنترنت، أو نشره فورًا برابط مباشر عبر Vercel.
+            </p>
+          </div>
+        </div>
+        <button
+          onClick={() => setShowInstallModal(true)}
+          className="shrink-0 w-full sm:w-auto px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-600 to-emerald-600 hover:from-sky-500 hover:to-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md shadow-sky-600/25 transition-all cursor-pointer"
+        >
+          <Download className="w-4 h-4" />
+          <span>مركز التحميل و Vercel</span>
+        </button>
+      </div>
+
       {/* Lab Stations Grid */}
       <section className="space-y-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-r-4 border-sky-500 pr-3">
@@ -345,6 +375,12 @@ export const HomeView: React.FC<HomeViewProps> = ({ setCurrentTab, onOpenAuth })
           />
         </div>
       </section>
+
+      {/* Install & Vercel Modal */}
+      <InstallAppModal
+        isOpen={showInstallModal}
+        onClose={() => setShowInstallModal(false)}
+      />
     </div>
   );
 };
