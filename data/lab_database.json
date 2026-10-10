@@ -1,0 +1,213 @@
+{
+  "users": [
+    {
+      "id": "user_owner_01",
+      "phone": "785502919",
+      "passwordHash": "45479fc536d5a33e2a22785f675b1b48246a19761e7debcb5f2d15ae1c168198",
+      "fullName": "المهندس المشرف (مالك المختبر)",
+      "university": "جامعة العلوم والتكنولوجيا والهندسة",
+      "studyLevel": "أستاذ مهندس",
+      "role": "owner",
+      "status": "active",
+      "subscriptionType": "VIP",
+      "subscriptionStartDate": "2026-10-09T19:58:56.803Z",
+      "subscriptionEndDate": "2028-10-09T19:58:56.804Z",
+      "createdAt": "2026-10-09T19:58:56.803Z",
+      "lastLoginAt": "2026-10-09T19:59:10.049Z"
+    },
+    {
+      "id": "user_student_sample",
+      "phone": "777000111",
+      "passwordHash": "1f051ac74d19be84294b0124d8e04519d2a0643fbe2872cf7d6400b14416256e",
+      "fullName": "عمر الميقاتي",
+      "university": "جامعة الملك فهد / جامعة صنعاء",
+      "studyLevel": "سنة ثالثة",
+      "role": "student",
+      "status": "active",
+      "subscriptionType": "فصلي",
+      "subscriptionStartDate": "2026-10-09T19:59:15.908Z",
+      "subscriptionEndDate": "2027-02-06T19:59:15.908Z",
+      "createdAt": "2026-10-09T19:58:56.803Z",
+      "lastLoginAt": "2026-10-09T21:14:28.010Z"
+    }
+  ],
+  "activationCodes": [
+    {
+      "id": "code_1791575969112_2_mds",
+      "code": "TEST-365D-4C9320",
+      "subscriptionType": "سنوي",
+      "durationDays": 365,
+      "status": "active",
+      "createdAt": "2026-10-09T19:59:29.111Z",
+      "notes": "كود توليد آلي نوع سنوي"
+    },
+    {
+      "id": "code_1791575969112_1_vgq",
+      "code": "TEST-365D-48F967",
+      "subscriptionType": "سنوي",
+      "durationDays": 365,
+      "status": "active",
+      "createdAt": "2026-10-09T19:59:29.111Z",
+      "notes": "كود توليد آلي نوع سنوي"
+    },
+    {
+      "id": "code_1791575969111_0_gj7",
+      "code": "TEST-365D-39BA7E",
+      "subscriptionType": "سنوي",
+      "durationDays": 365,
+      "status": "active",
+      "createdAt": "2026-10-09T19:59:29.111Z",
+      "notes": "كود توليد آلي نوع سنوي"
+    },
+    {
+      "id": "code_01",
+      "code": "MECHA-90D-78550",
+      "subscriptionType": "فصلي",
+      "durationDays": 90,
+      "status": "active",
+      "createdAt": "2026-10-09T19:58:56.803Z",
+      "notes": "كود فصلي تجريبي صالح لمدة 3 أشهر"
+    },
+    {
+      "id": "code_02",
+      "code": "MECHA-365-VIP01",
+      "subscriptionType": "VIP",
+      "durationDays": 365,
+      "status": "active",
+      "createdAt": "2026-10-09T19:58:56.803Z",
+      "notes": "كود اشتراك سنوي شامل VIP"
+    },
+    {
+      "id": "code_03",
+      "code": "MECHA-SEM-2026",
+      "subscriptionType": "فصلي",
+      "durationDays": 120,
+      "status": "used",
+      "createdAt": "2026-10-09T19:58:56.803Z",
+      "notes": "كود فصل دراسي كامل",
+      "usedAt": "2026-10-09T19:59:15.908Z",
+      "usedByStudentId": "user_student_sample",
+      "usedByStudentPhone": "777000111"
+    }
+  ],
+  "settings": {
+    "ownerLocalPhone": "785502919",
+    "ownerCountryCode": "+967",
+    "ownerInternationalPhone": "967785502919",
+    "allowSelfRegistration": true,
+    "freeTrialDays": 0,
+    "aiPromptLimitDaily": 50,
+    "aiSystemPromptExtra": "أنت مهندس ميكاترونكس خبير ومرشد أكاديمي متميز في مختبر الميكاترونكس الافتراضي."
+  },
+  "logs": [
+    {
+      "id": "log_1791580468010_hisc",
+      "timestamp": "2026-10-09T21:14:28.010Z",
+      "actorPhone": "777000111",
+      "actorRole": "student",
+      "action": "تسجيل دخول",
+      "details": "تسجيل دخول ناجح للمستخدم عمر الميقاتي"
+    },
+    {
+      "id": "log_1791575969112_cubr",
+      "timestamp": "2026-10-09T19:59:29.112Z",
+      "actorPhone": "785502919",
+      "actorRole": "owner",
+      "action": "توليد أكواد تفعيل جديدة",
+      "details": "تم توليد عدد 3 كود تفعيل نوع سنوي"
+    },
+    {
+      "id": "log_1791575955909_wqfc",
+      "timestamp": "2026-10-09T19:59:15.909Z",
+      "actorPhone": "777000111",
+      "actorRole": "student",
+      "action": "تفعيل كود اشتراك",
+      "details": "تم تفعيل الكود MECHA-SEM-2026 بنجاح وتمديد الاشتراك حتى 2027-02-06"
+    },
+    {
+      "id": "log_1791575952772_reu2",
+      "timestamp": "2026-10-09T19:59:12.772Z",
+      "actorPhone": "777000111",
+      "actorRole": "student",
+      "action": "تسجيل دخول",
+      "details": "تسجيل دخول ناجح للمستخدم عمر الميقاتي"
+    },
+    {
+      "id": "log_1791575950049_6nju",
+      "timestamp": "2026-10-09T19:59:10.049Z",
+      "actorPhone": "785502919",
+      "actorRole": "owner",
+      "action": "تسجيل دخول",
+      "details": "تسجيل دخول ناجح للمستخدم المهندس المشرف (مالك المختبر)"
+    },
+    {
+      "id": "log_init",
+      "timestamp": "2026-10-09T19:58:56.803Z",
+      "actorPhone": "SYSTEM",
+      "actorRole": "system",
+      "action": "تهيئة النظام",
+      "details": "تم إنشاء قاعدة بيانات مختبر الميكاترونكس الافتراضي وتجهيز الحسابات الافتراضية بنجاح."
+    }
+  ],
+  "resources": [
+    {
+      "id": "res_01",
+      "title": "المرجع الشامل في الدوائر الكهربائية والإلكترونية (Hayt & Boylestad)",
+      "category": "كتاب",
+      "description": "تحليل دوائر التيار المستمر والمتردد وقوانين كيرشوف ومضخمات العمليات.",
+      "fileUrl": "https://example.com/books/electric-circuits-mechatronics.pdf",
+      "fileSize": "14.2 MB",
+      "pages": 620,
+      "createdAt": "2026-10-09T19:58:56.803Z"
+    },
+    {
+      "id": "res_02",
+      "title": "دليل برمجة وتطبيقات الأردوينو في الروبوتات الصناعية",
+      "category": "دليل عملي",
+      "description": "شرح الحساسات والمحركات وواجهات الاتصال التسلسلي مع أمثلة كود جاهزة.",
+      "fileUrl": "https://example.com/guides/arduino-robotics-handbook.pdf",
+      "fileSize": "8.5 MB",
+      "pages": 240,
+      "createdAt": "2026-10-09T19:58:56.803Z"
+    },
+    {
+      "id": "res_03",
+      "title": "مقدمة في نظرية التحكم الآلي وتصميم متحكمات PID",
+      "category": "محاضرة",
+      "description": "دراسة استجابة الأنظمة من الدرجة الأولى والثانية وطرق ضبط معاملات Ziegler-Nichols.",
+      "fileUrl": "https://example.com/lectures/control-systems-pid.pdf",
+      "fileSize": "5.1 MB",
+      "pages": 115,
+      "createdAt": "2026-10-09T19:58:56.803Z"
+    }
+  ],
+  "videos": [
+    {
+      "id": "vid_01",
+      "title": "شرح قوانين كيرشوف وتحليل العقد والحلقات عمليًا",
+      "topic": "دوائر كهربائية",
+      "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "duration": "28:15",
+      "level": "مستوى أساسي",
+      "createdAt": "2026-10-09T19:58:56.803Z"
+    },
+    {
+      "id": "vid_02",
+      "title": "بناء وبرمجة ذراع روبوتية ثلاثية المحاور بواسطة Arduino",
+      "topic": "روبوتات ومحركات",
+      "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "duration": "42:00",
+      "level": "مستوى متوسط",
+      "createdAt": "2026-10-09T19:58:56.803Z"
+    },
+    {
+      "id": "vid_03",
+      "title": "طريقة ضبط معاملات متحكم PID للمحركات خطوة بخطوة",
+      "topic": "أنظمة التحكم",
+      "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "duration": "35:40",
+      "level": "مستوى متقدم",
+      "createdAt": "2026-10-09T19:58:56.803Z"
+    }
+  ]
+}

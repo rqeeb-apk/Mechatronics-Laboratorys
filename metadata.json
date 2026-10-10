@@ -1,0 +1,6 @@
+{
+  "name": "مختبر الميكاترونكس الافتراضي — Virtual Mechatronics Lab",
+  "description": "منصة تعليمية تفاعلية شاملة لمحاكاة الدوائر الكهربائية والإلكترونية والأنظمة الرقمية والأردوينو والروبوتات وأنظمة التحكم مع نظام إدارة الاشتراكات ومساعد ذكي.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

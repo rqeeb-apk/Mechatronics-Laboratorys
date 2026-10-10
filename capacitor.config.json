@@ -1,0 +1,15 @@
+{
+  "appId": "com.mechatronics.virtual.lab",
+  "appName": "مختبر الميكاترونكس الافتراضي",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https",
+    "cleartext": true
+  },
+  "android": {
+    "allowMixedContent": true,
+    "captureInput": true,
+    "webContentsDebuggingEnabled": false
+  }
+}
