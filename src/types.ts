@@ -64,6 +64,19 @@ export interface EducationalVideo {
   createdAt: string;
 }
 
+export interface EducationalLesson {
+  id: string;
+  title: string;
+  subject: string;
+  level: string;
+  summary: string;
+  content: string;
+  videoUrl?: string;
+  pdfUrl?: string;
+  author: string;
+  createdAt: string;
+}
+
 export type ComponentType =
   | 'dc_source'
   | 'ac_source'

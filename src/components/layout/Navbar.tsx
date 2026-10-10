@@ -46,6 +46,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'arduino', label: 'مختبر Arduino', icon: Layers },
     { id: 'robotics', label: 'المحركات والروبوتات', icon: Bot },
     { id: 'control', label: 'أنظمة التحكم', icon: Sliders },
+    { id: 'lessons', label: 'الدروس والشروحات', icon: BookOpen },
     { id: 'calculators', label: 'الحاسبات', icon: Calculator },
     { id: 'ai', label: 'مساعد AI', icon: Sparkles, badge: 'Gemini' },
   ];

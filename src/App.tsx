@@ -19,6 +19,7 @@ import { ProfileView } from './views/ProfileView.tsx';
 import { TrainingBoardView } from './views/TrainingBoardView.tsx';
 import { ElectronicsBoxView } from './views/ElectronicsBoxView.tsx';
 import { UniversityProjectsView } from './views/UniversityProjectsView.tsx';
+import { LessonsView } from './views/LessonsView.tsx';
 import { SubscriptionGate } from './components/auth/SubscriptionGate.tsx';
 
 const MainContent: React.FC = () => {
@@ -47,6 +48,7 @@ const MainContent: React.FC = () => {
     'arduino',
     'robotics',
     'control',
+    'lessons',
     'experiments',
     'calculators',
     'ai',
@@ -89,6 +91,9 @@ const MainContent: React.FC = () => {
             {effectiveTab === 'arduino' && <ArduinoLabView />}
             {effectiveTab === 'robotics' && <RoboticsLabView />}
             {effectiveTab === 'control' && <ControlSystemsLabView />}
+            {effectiveTab === 'lessons' && (
+              <LessonsView onOpenOwnerDashboard={() => setCurrentTab('owner')} />
+            )}
             {effectiveTab === 'experiments' && <ExperimentsView onLaunchLab={setCurrentTab} />}
             {effectiveTab === 'calculators' && <CalculatorsView />}
             {effectiveTab === 'ai' && <AiAssistantView />}

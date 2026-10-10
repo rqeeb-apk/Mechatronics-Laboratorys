@@ -392,6 +392,63 @@ app.delete('/api/owner/students/:id', requireOwner, (req: Request, res: Response
   }
 });
 
+// Subscription Management: Cancel or Activate/Extend Duration
+app.post('/api/owner/students/:id/subscription', requireOwner, (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { action, durationDays, customEndDate, subscriptionType } = req.body;
+  const target = db.getUserById(id);
+  if (!target) {
+    res.status(404).json({ error: 'الطالب غير موجود' });
+    return;
+  }
+
+  const now = new Date();
+  if (action === 'cancel') {
+    const updated = db.updateUser(id, {
+      status: 'expired',
+      subscriptionEndDate: now.toISOString(),
+    });
+    db.addLog({
+      actorPhone: (req as any).user.phone,
+      actorRole: 'owner',
+      action: 'إلغاء اشتراك طالب',
+      details: `قام المالك بإلغاء اشتراك الطالب ${target.fullName} (${target.phone}) فورياً`,
+    });
+    const { passwordHash: _, ...safe } = updated!;
+    res.json({ success: true, message: 'تم إلغاء الاشتراك بنجاح', student: safe });
+    return;
+  }
+
+  // Activate or extend duration
+  const days = parseInt(durationDays, 10) || 90;
+  let end = new Date(now);
+  if (customEndDate) {
+    end = new Date(customEndDate);
+  } else {
+    const currentEnd = target.subscriptionEndDate ? new Date(target.subscriptionEndDate) : now;
+    const baseDate = currentEnd > now ? currentEnd : now;
+    end = new Date(baseDate);
+    end.setDate(end.getDate() + days);
+  }
+
+  const updated = db.updateUser(id, {
+    status: 'active',
+    subscriptionType: subscriptionType || target.subscriptionType || 'فصلي',
+    subscriptionStartDate: now.toISOString(),
+    subscriptionEndDate: end.toISOString(),
+  });
+
+  db.addLog({
+    actorPhone: (req as any).user.phone,
+    actorRole: 'owner',
+    action: 'تفعيل/تمديد اشتراك طالب',
+    details: `قام المالك بتفعيل اشتراك الطالب ${target.fullName} (${target.phone}) حتى ${end.toISOString().split('T')[0]}`,
+  });
+
+  const { passwordHash: _, ...safe } = updated!;
+  res.json({ success: true, message: 'تم تفعيل وتمديد الاشتراك بنجاح', student: safe });
+});
+
 app.get('/api/owner/codes', requireOwner, (req: Request, res: Response) => {
   res.json({ codes: db.getActivationCodes() });
 });
@@ -441,6 +498,22 @@ app.put('/api/owner/codes/:id/revoke', requireOwner, (req: Request, res: Respons
     actorRole: 'owner',
     action: 'إلغاء كود تفعيل',
     details: `تم إلغاء كود التفعيل ${updated.code}`,
+  });
+  res.json({ success: true, code: updated });
+});
+
+app.put('/api/owner/codes/:id/reactivate', requireOwner, (req: Request, res: Response) => {
+  const { id } = req.params;
+  const updated = db.updateActivationCode(id, { status: 'active' });
+  if (!updated) {
+    res.status(404).json({ error: 'الكود غير موجود' });
+    return;
+  }
+  db.addLog({
+    actorPhone: (req as any).user.phone,
+    actorRole: 'owner',
+    action: 'إعادة تفعيل كود',
+    details: `تمت إعادة تفعيل الكود ${updated.code} ليصبح متاحاً للطلاب`,
   });
   res.json({ success: true, code: updated });
 });
@@ -516,6 +589,69 @@ app.post('/api/owner/videos', requireOwner, (req: Request, res: Response) => {
 app.delete('/api/owner/videos/:id', requireOwner, (req: Request, res: Response) => {
   const { id } = req.params;
   const success = db.deleteVideo(id);
+  res.json({ success });
+});
+
+// ---------------- EDUCATIONAL LESSONS ----------------
+app.get('/api/lessons', (req: Request, res: Response) => {
+  res.json({ lessons: db.getLessons() });
+});
+
+app.post('/api/owner/lessons', requireOwner, (req: Request, res: Response) => {
+  const { title, subject, level, summary, content, videoUrl, pdfUrl } = req.body;
+  if (!title || !content) {
+    res.status(400).json({ error: 'يرجى إدخال عنوان ومحتوى الدرس' });
+    return;
+  }
+  const lesson = db.createLesson({
+    id: 'les_' + Date.now(),
+    title,
+    subject: subject || 'عام',
+    level: level || 'مبتدئ',
+    summary: summary || '',
+    content,
+    videoUrl: videoUrl || undefined,
+    pdfUrl: pdfUrl || undefined,
+    author: (req as any).user.fullName || 'المهندس المشرف (مالك المختبر)',
+    createdAt: new Date().toISOString(),
+  });
+
+  db.addLog({
+    actorPhone: (req as any).user.phone,
+    actorRole: 'owner',
+    action: 'إضافة درس تعليمي جديد',
+    details: `قام المالك بإضافة درس جديد: ${lesson.title} (${lesson.subject})`,
+  });
+
+  res.json({ success: true, lesson });
+});
+
+app.put('/api/owner/lessons/:id', requireOwner, (req: Request, res: Response) => {
+  const { id } = req.params;
+  const updates = req.body;
+  const updated = db.updateLesson(id, updates);
+  if (!updated) {
+    res.status(404).json({ error: 'الدرس غير موجود' });
+    return;
+  }
+  db.addLog({
+    actorPhone: (req as any).user.phone,
+    actorRole: 'owner',
+    action: 'تعديل درس تعليمي',
+    details: `تم تحديث بيانات الدرس: ${updated.title}`,
+  });
+  res.json({ success: true, lesson: updated });
+});
+
+app.delete('/api/owner/lessons/:id', requireOwner, (req: Request, res: Response) => {
+  const { id } = req.params;
+  const success = db.deleteLesson(id);
+  db.addLog({
+    actorPhone: (req as any).user.phone,
+    actorRole: 'owner',
+    action: 'حذف درس تعليمي',
+    details: `تم حذف الدرس رقم ${id}`,
+  });
   res.json({ success });
 });
 

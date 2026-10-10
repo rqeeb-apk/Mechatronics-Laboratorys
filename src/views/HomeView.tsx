@@ -122,6 +122,15 @@ export const HomeView: React.FC<HomeViewProps> = ({ setCurrentTab, onOpenAuth })
       badge: 'محاكاة حل المعادلات التفاضلية',
     },
     {
+      id: 'lessons',
+      title: 'الدروس والشروحات الأكاديمية',
+      subtitle: 'Academic Tutorials & Lecture Notes',
+      description: 'شروحات هندسية تفصيلية معدة من قِبل إدارة المعمل تشمل قوانين الدوائر، الترانزستور، الأردوينو، الكينماتيكا، ومتحكمات PID مع فيديوهات وملازم PDF.',
+      icon: BookOpen,
+      gradient: 'from-amber-500 to-orange-600',
+      badge: 'شروحات ومحاضرات معتمدة',
+    },
+    {
       id: 'experiments',
       title: 'مكتبة التجارب الجاهزة والتمارين',
       subtitle: 'Guided Engineering Experiments',

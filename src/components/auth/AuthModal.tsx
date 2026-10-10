@@ -1,7 +1,23 @@
 import React, { useState } from 'react';
-import { X, Lock, Phone, User as UserIcon, School, GraduationCap, KeyRound, CheckCircle2, AlertCircle, ShieldCheck } from 'lucide-react';
+import { X, Lock, Phone, User as UserIcon, School, GraduationCap, KeyRound, CheckCircle2, AlertCircle, ShieldCheck, Sparkles } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext.tsx';
 import { WhatsAppButton } from './WhatsAppButton.tsx';
+
+export const YEMENI_UNIVERSITIES = [
+  'جامعة العلوم والتكنولوجيا',
+  'جامعة صنعاء',
+  'جامعة الرشيد',
+  'الجامعة الإماراتية اليمنية',
+  'جامعة أخرى يمنية',
+  'جامعة ذمار',
+  'جامعة إب',
+  'جامعة تعز',
+  'جامعة عدن',
+  'جامعة حضرموت',
+  'جامعة سبأ',
+  'جامعة 21 سبتمبر',
+  'جامعة الملكة أروى',
+];
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -21,7 +37,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
-  const [university, setUniversity] = useState('جامعة الملك فهد للبترول والمعادن');
+  const [selectedUniv, setSelectedUniv] = useState<string>('جامعة العلوم والتكنولوجيا');
+  const [customUniv, setCustomUniv] = useState<string>('');
   const [studyLevel, setStudyLevel] = useState('سنة ثالثة');
   const [activationCode, setActivationCode] = useState('');
 
@@ -51,11 +68,15 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     setErrorMsg('');
     setLoading(true);
 
+    const finalUniversity = selectedUniv === 'جامعة أخرى يمنية'
+      ? (customUniv.trim() || 'جامعة يمنية أخرى')
+      : selectedUniv;
+
     const res = await register({
       phone,
       password,
       fullName,
-      university,
+      university: finalUniversity,
       studyLevel,
       activationCode: activationCode.trim() || undefined,
     });
@@ -204,6 +225,76 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           {/* LOGIN FORM */}
           {mode === 'login' && (
             <form onSubmit={handleLoginSubmit} className="space-y-4">
+              {/* Yemeni Universities in Login */}
+              <div className="p-3.5 rounded-2xl bg-gradient-to-r from-sky-950/80 via-slate-900 to-indigo-950/80 border border-sky-600/40 text-xs text-slate-300 space-y-2.5 shadow-inner">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1.5 text-sky-400 font-bold text-xs">
+                    <School className="w-4 h-4 text-sky-400" />
+                    <span>الجامعات اليمنية المعتمدة 🇾🇪</span>
+                  </div>
+                  <span className="text-[10px] text-sky-300 bg-sky-950 px-2 py-0.5 rounded-full border border-sky-800 font-mono">
+                    اختر جامعتك
+                  </span>
+                </div>
+
+                {/* Quick Selection Chips */}
+                <div className="flex flex-wrap gap-1.5 pt-0.5">
+                  {[
+                    'جامعة العلوم والتكنولوجيا',
+                    'جامعة صنعاء',
+                    'جامعة الرشيد',
+                    'الجامعة الإماراتية اليمنية',
+                    'جامعة أخرى يمنية',
+                  ].map((univ) => (
+                    <button
+                      key={univ}
+                      type="button"
+                      onClick={() => {
+                        setSelectedUniv(univ);
+                        if (univ !== 'جامعة أخرى يمنية') setCustomUniv('');
+                      }}
+                      className={`text-[10px] font-semibold px-2 py-1 rounded-lg border transition-all cursor-pointer ${
+                        selectedUniv === univ
+                          ? 'bg-sky-600 text-white border-sky-400 shadow-sm'
+                          : 'bg-slate-950/80 text-slate-300 border-slate-700/80 hover:bg-slate-800 hover:text-white'
+                      }`}
+                    >
+                      {univ}
+                    </button>
+                  ))}
+                </div>
+
+                {/* University Dropdown Selector */}
+                <div className="pt-1">
+                  <div className="relative">
+                    <select
+                      value={selectedUniv}
+                      onChange={(e) => setSelectedUniv(e.target.value)}
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 pl-9 text-white focus:outline-none focus:border-sky-500 transition-colors text-xs font-medium cursor-pointer"
+                    >
+                      {YEMENI_UNIVERSITIES.map((univ) => (
+                        <option key={univ} value={univ} className="bg-slate-900 text-white py-1">
+                          {univ}
+                        </option>
+                      ))}
+                    </select>
+                    <School className="w-4 h-4 text-sky-400 absolute left-3 top-2.5 pointer-events-none" />
+                  </div>
+
+                  {selectedUniv === 'جامعة أخرى يمنية' && (
+                    <div className="mt-2 animate-in fade-in">
+                      <input
+                        type="text"
+                        value={customUniv}
+                        onChange={(e) => setCustomUniv(e.target.value)}
+                        placeholder="اكتب اسم الجامعة اليمنية الخاصة بك..."
+                        className="w-full bg-slate-950 border border-sky-500/70 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-sky-400 text-xs"
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+
               <div>
                 <label className="block text-xs font-semibold text-slate-300 mb-1.5">رقم الهاتف</label>
                 <div className="relative">
@@ -325,18 +416,37 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">الجامعة / الكلية</label>
+                  <label className="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center justify-between">
+                    <span>الجامعة اليمنية</span>
+                    <span className="text-[10px] text-sky-400 font-mono">اليمن 🇾🇪</span>
+                  </label>
                   <div className="relative">
-                    <input
-                      type="text"
-                      required
-                      value={university}
-                      onChange={(e) => setUniversity(e.target.value)}
-                      placeholder="اسم الجامعة"
-                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 pl-9 text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 transition-colors text-sm"
-                    />
-                    <School className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
+                    <select
+                      value={selectedUniv}
+                      onChange={(e) => setSelectedUniv(e.target.value)}
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 pl-9 text-white focus:outline-none focus:border-sky-500 transition-colors text-xs font-medium cursor-pointer"
+                    >
+                      {YEMENI_UNIVERSITIES.map((univ) => (
+                        <option key={univ} value={univ} className="bg-slate-900 text-white py-1">
+                          {univ}
+                        </option>
+                      ))}
+                    </select>
+                    <School className="w-4 h-4 text-sky-400 absolute left-3 top-3" />
                   </div>
+
+                  {selectedUniv === 'جامعة أخرى يمنية' && (
+                    <div className="mt-2 animate-in fade-in">
+                      <input
+                        type="text"
+                        required
+                        value={customUniv}
+                        onChange={(e) => setCustomUniv(e.target.value)}
+                        placeholder="اكتب اسم الجامعة اليمنية هنا..."
+                        className="w-full bg-slate-950 border border-sky-500/70 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-sky-400 text-xs"
+                      />
+                    </div>
+                  )}
                 </div>
 
                 <div>

@@ -71,6 +71,19 @@ export interface EducationalVideo {
   createdAt: string;
 }
 
+export interface EducationalLesson {
+  id: string;
+  title: string;
+  subject: string;
+  level: string;
+  summary: string;
+  content: string;
+  videoUrl?: string;
+  pdfUrl?: string;
+  author: string;
+  createdAt: string;
+}
+
 export interface DatabaseSchema {
   users: User[];
   activationCodes: ActivationCode[];
@@ -78,6 +91,7 @@ export interface DatabaseSchema {
   logs: AuditLog[];
   resources: EducationalResource[];
   videos: EducationalVideo[];
+  lessons: EducationalLesson[];
 }
 
 const DATA_DIR = path.resolve(process.cwd(), 'data');
@@ -238,6 +252,68 @@ function getDefaultDatabase(): DatabaseSchema {
         level: 'مستوى متقدم',
         createdAt: now,
       }
+    ],
+    lessons: [
+      {
+        id: 'les_01',
+        title: 'الدرس 1: تحليل الدوائر الكهربائية وقانون أوم وتوصيل المقاومات',
+        subject: 'دوائر كهربائية',
+        level: 'مبتدئ',
+        summary: 'شرح مفهوم فرق الجهد والتيار والمقاومة وتطبيقات قانون أوم وكيرشوف في الدوائر المتسلسلة والمتوازية.',
+        content: 'في هذا الدرس، يتعلم الطالب أساسيات الهندسة الكهربائية، حيث ينص قانون أوم على أن V = I × R. يتم تحليل دارات التوالي لحساب المقاومة المكافئة Req = R1 + R2، ودارات التوازي لحساب 1/Req = 1/R1 + 1/R2 مع قياس الجهد والتيار باستخدام الفولتميتر والأميتر المخبري.',
+        videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        pdfUrl: 'https://example.com/lessons/ohm-law-circuits.pdf',
+        author: 'المهندس المشرف (مالك المختبر)',
+        createdAt: now,
+      },
+      {
+        id: 'les_02',
+        title: 'الدرس 2: الترانزستور BJT واستخدامه كمفتاح إلكتروني وقيادة الأحمال',
+        subject: 'إلكترونيات',
+        level: 'متوسط',
+        summary: 'دراسة مناطق عمل الترانزستور (القطع، التشبع، التكبير) وكيفية قيادة الريليهات ومحركات التيار المستمر.',
+        content: 'الترانزستور NPN BC547 يعتبر حجر الأساس في التحكم في الأحمال الحثية. عند تطبيق تيار كافٍ على القاعدة Ib > Ic/hFE، يدخل الترانزستور في طور التشبع (Vce ≈ 0.2V) ليعمل كمفتاح مغلق، مع ضرورة وضع دايود حماية Flyback Diode بالتوازي مع الملف.',
+        videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        pdfUrl: 'https://example.com/lessons/transistor-switch-circuit.pdf',
+        author: 'المهندس المشرف (مالك المختبر)',
+        createdAt: now,
+      },
+      {
+        id: 'les_03',
+        title: 'الدرس 3: برمجة Arduino Uno وقراءة الحساسات والتحكم النبضي PWM',
+        subject: 'أردوينو',
+        level: 'متوسط',
+        summary: 'التعامل مع المداخل والمخارج الرقمية والتناظرية، توليد إشارات PWM للتحكم في سرعة المحركات وإضاءة LED.',
+        content: 'متحكم ATmega328P على لوحة Arduino Uno يوفر منافذ تناظرية (A0-A5) بدقة 10-bit لتحويل الجهد 0-5V إلى قيم رقمية 0-1023، ومنافذ PWM بتردد 490Hz للتحكم في عرض النبضة عبر دالة analogWrite(pin, val).',
+        videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        pdfUrl: 'https://example.com/lessons/arduino-pwm-sensors.pdf',
+        author: 'المهندس المشرف (مالك المختبر)',
+        createdAt: now,
+      },
+      {
+        id: 'les_04',
+        title: 'الدرس 4: الكينماتيكا المباشرة للأذرع الروبوتية وحسابات العزم',
+        subject: 'روبوتات',
+        level: 'متقدم',
+        summary: 'حساب موقع نهاية الذراع الروبوتية في الفضاء ثلاثي الأبعاد بالاعتماد على زوايا المفاصل وأطوال الوصلات.',
+        content: 'معادلات Forward Kinematics تمكننا من تحديد موضع المستجيب النهائي (X, Y, Z) بدلالة زوايا المفاصل ثيتا 1 و 2 و 3 ومصفوفات التحويل المتجانسة Denavit-Hartenberg (D-H parameters). كما يتم حساب عزم المحركات اللازم لرفع الأحمال مع الأخذ بعين الاعتبار الجاذبية وعزم القصور الذاتي.',
+        videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        pdfUrl: 'https://example.com/lessons/robotics-kinematics.pdf',
+        author: 'المهندس المشرف (مالك المختبر)',
+        createdAt: now,
+      },
+      {
+        id: 'les_05',
+        title: 'الدرس 5: تصميم وضبط معاملات متحكم PID لأنظمة التحكم المغلقة',
+        subject: 'أنظمة تحكم',
+        level: 'متقدم',
+        summary: 'تأثير كل من الحد التناسبي Kp والتكاملي Ki والاشتقاقي Kd على استجابة النظام وزمن الاستقرار والتجاوز.',
+        content: 'يعد متحكم PID المعيار الصناعي الأول لأنظمة التغذية الراجعة. الحد التناسبي Kp يقلل زمن الصعود، والتكاملي Ki يلغي الخطأ في الحالة المستقرة (Steady-state error)، والاشتقاقي Kd يحسن التخميد ويقلل التجاوز الزائد (Overshoot). يتم الضبط العملي بطريقة Ziegler-Nichols.',
+        videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        pdfUrl: 'https://example.com/lessons/pid-controller-tuning.pdf',
+        author: 'المهندس المشرف (مالك المختبر)',
+        createdAt: now,
+      }
     ]
   };
 }
@@ -272,6 +348,7 @@ class Database {
           logs: Array.isArray(parsed.logs) ? parsed.logs : defaultDb.logs,
           resources: Array.isArray(parsed.resources) ? parsed.resources : defaultDb.resources,
           videos: Array.isArray(parsed.videos) ? parsed.videos : defaultDb.videos,
+          lessons: Array.isArray(parsed.lessons) ? parsed.lessons : defaultDb.lessons,
         };
       }
     } catch (err) {
@@ -426,6 +503,42 @@ class Database {
     const initialLen = this.data.videos.length;
     this.data.videos = this.data.videos.filter(v => v.id !== id);
     if (this.data.videos.length !== initialLen) {
+      this.saveData();
+      return true;
+    }
+    return false;
+  }
+
+  // Lessons
+  getLessons(): EducationalLesson[] {
+    return this.data.lessons || [];
+  }
+
+  getLessonById(id: string): EducationalLesson | undefined {
+    return (this.data.lessons || []).find(l => l.id === id);
+  }
+
+  createLesson(lesson: EducationalLesson): EducationalLesson {
+    if (!this.data.lessons) this.data.lessons = [];
+    this.data.lessons.unshift(lesson);
+    this.saveData();
+    return lesson;
+  }
+
+  updateLesson(id: string, updates: Partial<EducationalLesson>): EducationalLesson | null {
+    if (!this.data.lessons) this.data.lessons = [];
+    const index = this.data.lessons.findIndex(l => l.id === id);
+    if (index === -1) return null;
+    this.data.lessons[index] = { ...this.data.lessons[index], ...updates };
+    this.saveData();
+    return this.data.lessons[index];
+  }
+
+  deleteLesson(id: string): boolean {
+    if (!this.data.lessons) return false;
+    const initialLen = this.data.lessons.length;
+    this.data.lessons = this.data.lessons.filter(l => l.id !== id);
+    if (this.data.lessons.length !== initialLen) {
       this.saveData();
       return true;
     }
